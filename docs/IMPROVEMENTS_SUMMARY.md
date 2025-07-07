@@ -160,6 +160,10 @@ python scripts/generate_sample_orders.py
 - **`scripts/generate_sample_orders.py`**: Generate realistic sample orders
 - **`scripts/bulk-create-orders.sh`**: Bulk order creation with progress tracking
 
+### Maintenance Scripts
+- **`scripts/cleanup.sh`**: Removes unused directories and files (e.g., empty events directory)
+  - Usage: `chmod +x scripts/cleanup.sh && ./scripts/cleanup.sh`
+
 ## 5. Project Structure Improvements
 
 ### Renamed Directory Structure
@@ -168,6 +172,11 @@ python scripts/generate_sample_orders.py
   - `template.yaml` (CodeUri)
   - `tests/unit/test_handler.py` (import statement)
   - `README.md` (requirements path)
+
+### Removed Unused Directories
+- **Removed**: `events/` folder with `hello.json` file
+  - This folder contained a sample API Gateway event that was not referenced anywhere in the codebase
+  - The test events are now defined directly in test files (e.g., `tests/unit/test_handler.py`) or in `test_event.json`
 
 ### New Data Directory
 ```
