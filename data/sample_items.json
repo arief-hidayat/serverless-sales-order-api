@@ -1,0 +1,62 @@
+[
+  {
+    "item_id": "ITEM001",
+    "product_name": "Organic Bananas",
+    "sku": "FRUIT-BAN-ORG",
+    "unit_price": 2.99
+  },
+  {
+    "item_id": "ITEM002", 
+    "product_name": "Whole Milk 1 Gallon",
+    "sku": "DAIRY-MILK-WHL",
+    "unit_price": 4.49
+  },
+  {
+    "item_id": "ITEM003",
+    "product_name": "Sourdough Bread Loaf",
+    "sku": "BAKERY-BRD-SOUR",
+    "unit_price": 3.99
+  },
+  {
+    "item_id": "ITEM004",
+    "product_name": "Free Range Eggs (12 count)",
+    "sku": "DAIRY-EGG-FR",
+    "unit_price": 5.99
+  },
+  {
+    "item_id": "ITEM005",
+    "product_name": "Ground Beef 80/20 (1 lb)",
+    "sku": "MEAT-BEEF-GRD",
+    "unit_price": 6.99
+  },
+  {
+    "item_id": "ITEM006",
+    "product_name": "Chicken Breast Boneless (1 lb)",
+    "sku": "MEAT-CHKN-BRS",
+    "unit_price": 8.99
+  },
+  {
+    "item_id": "ITEM007",
+    "product_name": "Roma Tomatoes (1 lb)",
+    "sku": "VEG-TOM-ROMA",
+    "unit_price": 2.49
+  },
+  {
+    "item_id": "ITEM008",
+    "product_name": "Iceberg Lettuce Head",
+    "sku": "VEG-LET-ICE",
+    "unit_price": 1.99
+  },
+  {
+    "item_id": "ITEM009",
+    "product_name": "Cheddar Cheese Block (8 oz)",
+    "sku": "DAIRY-CHZ-CHED",
+    "unit_price": 4.99
+  },
+  {
+    "item_id": "ITEM010",
+    "product_name": "Orange Juice (64 oz)",
+    "sku": "BEV-JUICE-ORA",
+    "unit_price": 3.79
+  }
+]

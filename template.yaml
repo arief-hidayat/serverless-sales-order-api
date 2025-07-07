@@ -1,0 +1,199 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sales Order API
+
+  A comprehensive RESTful API for managing sales orders with full CRUD operations.
+  Built with AWS Lambda Powertools for observability and Pydantic for data validation.
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Runtime: python3.12
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
+    Environment:
+      Variables:
+        POWERTOOLS_SERVICE_NAME: SalesOrderAPI
+        POWERTOOLS_METRICS_NAMESPACE: SalesOrderAPI
+        LOG_LEVEL: INFO
+        POWERTOOLS_LOG_LEVEL: INFO
+  Api:
+    TracingEnabled: true
+    Cors:
+      AllowMethods: "'GET,POST,PUT,PATCH,DELETE,OPTIONS'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      AllowOrigin: "'*'"
+
+Resources:
+  SalesOrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler
+      CodeUri: sales_order_api
+      Description: Sales Order API Lambda function with comprehensive CRUD operations
+      Architectures:
+      - x86_64
+      Tracing: Active
+      Events:
+        # Order CRUD operations
+        CreateOrder:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: POST
+            Auth:
+              ApiKeyRequired: true
+        ListOrders:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: GET
+            Auth:
+              ApiKeyRequired: true
+        GetOrder:
+          Type: Api
+          Properties:
+            Path: /orders/{order_id}
+            Method: GET
+            Auth:
+              ApiKeyRequired: true
+        UpdateOrder:
+          Type: Api
+          Properties:
+            Path: /orders/{order_id}
+            Method: PUT
+            Auth:
+              ApiKeyRequired: true
+        DeleteOrder:
+          Type: Api
+          Properties:
+            Path: /orders/{order_id}
+            Method: DELETE
+            Auth:
+              ApiKeyRequired: true
+        
+        # Order status operations
+        GetOrderStatus:
+          Type: Api
+          Properties:
+            Path: /orders/{order_id}/status
+            Method: GET
+            Auth:
+              ApiKeyRequired: true
+        UpdateOrderStatus:
+          Type: Api
+          Properties:
+            Path: /orders/{order_id}/status
+            Method: PATCH
+            Auth:
+              ApiKeyRequired: true
+        
+        # Utility endpoints (health check, OpenAPI, and Swagger don't require auth for monitoring)
+        HealthCheck:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: GET
+        OpenAPISpec:
+          Type: Api
+          Properties:
+            Path: /openapi.json
+            Method: GET
+        SwaggerUI:
+          Type: Api
+          Properties:
+            Path: /swagger
+            Method: GET
+
+      Tags:
+        Service: SalesOrderAPI
+        Environment: !Ref Environment
+        LambdaPowertools: python
+
+  # API Key for authentication
+  SalesOrderApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    Properties:
+      Name: !Sub "${AWS::StackName}-api-key"
+      Description: API Key for Sales Order API
+      Enabled: true
+      GenerateDistinctId: true
+
+  # Usage Plan
+  SalesOrderUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      UsagePlanName: !Sub "${AWS::StackName}-usage-plan"
+      Description: Usage plan for Sales Order API with rate limiting
+      ApiStages:
+        - ApiId: !Ref ServerlessRestApi
+          Stage: Prod
+      Quota:
+        Limit: 10000
+        Period: MONTH
+      Throttle:
+        BurstLimit: 100
+        RateLimit: 50
+
+  # Link API Key to Usage Plan
+  SalesOrderUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Properties:
+      KeyId: !Ref SalesOrderApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref SalesOrderUsagePlan
+
+  # Application Insights for monitoring
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name:
+        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName:
+        Ref: ApplicationResourceGroup
+      AutoConfigurationEnabled: 'true'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Environment name for resource tagging
+
+Outputs:
+  SalesOrderApi:
+    Description: API Gateway endpoint URL for Sales Order API
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Export:
+      Name: !Sub "${AWS::StackName}-SalesOrderApi"
+
+  SalesOrderFunction:
+    Description: Sales Order Lambda Function ARN
+    Value: !GetAtt SalesOrderFunction.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-SalesOrderFunction"
+
+  OpenAPISpecUrl:
+    Description: URL to access the OpenAPI specification
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/openapi.json"
+    Export:
+      Name: !Sub "${AWS::StackName}-OpenAPISpec"
+
+  HealthCheckUrl:
+    Description: URL for API health check
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/health"
+    Export:
+      Name: !Sub "${AWS::StackName}-HealthCheck"
+
