@@ -20,6 +20,7 @@ Globals:
         POWERTOOLS_METRICS_NAMESPACE: SalesOrderAPI
         LOG_LEVEL: INFO
         POWERTOOLS_LOG_LEVEL: INFO
+        ORDERS_TABLE: !Ref SalesOrdersTable
   Api:
     TracingEnabled: true
     Cors:
@@ -112,6 +113,62 @@ Resources:
         Service: SalesOrderAPI
         Environment: !Ref Environment
         LambdaPowertools: python
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SalesOrdersTable
+
+  # DynamoDB table for storing sales orders
+  SalesOrdersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-orders"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: order_id
+          AttributeType: S
+        - AttributeName: customer_id
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: created_at
+          AttributeType: S
+        - AttributeName: date_partition
+          AttributeType: S
+      KeySchema:
+        - AttributeName: order_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: CustomerIndex
+          KeySchema:
+            - AttributeName: customer_id
+              KeyType: HASH
+            - AttributeName: created_at
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: StatusIndex
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: created_at
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: DateIndex
+          KeySchema:
+            - AttributeName: date_partition
+              KeyType: HASH
+            - AttributeName: created_at
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Application
+          Value: SalesOrderAPI
 
   # API Key for authentication
   SalesOrderApiKey:
@@ -185,11 +242,29 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}-SalesOrderFunction"
 
-  OpenAPISpecUrl:
-    Description: URL to access the OpenAPI specification
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/openapi.json"
+  SwaggerUIUrl:
+    Description: Interactive Swagger UI for API documentation and testing
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/swagger"
     Export:
-      Name: !Sub "${AWS::StackName}-OpenAPISpec"
+      Name: !Sub "${AWS::StackName}-SwaggerUI"
+
+  HealthCheckUrl:
+    Description: URL for API health check
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/health"
+    Export:
+      Name: !Sub "${AWS::StackName}-HealthCheck"
+
+  SalesOrdersTable:
+    Description: DynamoDB table name for sales orders
+    Value: !Ref SalesOrdersTable
+    Export:
+      Name: !Sub "${AWS::StackName}-SalesOrdersTable"
+
+  SalesOrdersTableArn:
+    Description: DynamoDB table ARN for sales orders
+    Value: !GetAtt SalesOrdersTable.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-SalesOrdersTableArn"
 
   HealthCheckUrl:
     Description: URL for API health check

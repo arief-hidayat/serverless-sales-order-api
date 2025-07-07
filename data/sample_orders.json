@@ -1,187 +1,6 @@
 [
   {
     "customer": {
-      "customer_id": "CUST004",
-      "first_name": "Emily",
-      "last_name": "Davis",
-      "email": "emily.davis@email.com",
-      "phone": "+1-555-456-7890",
-      "billing_address": {
-        "street": "321 Elm St",
-        "city": "Portland",
-        "state": "OR",
-        "postal_code": "97201",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM005",
-        "product_name": "Ground Beef 80/20 (1 lb)",
-        "sku": "MEAT-BEEF-GRD",
-        "quantity": 3,
-        "unit_price": 6.99
-      },
-      {
-        "item_id": "ITEM009",
-        "product_name": "Cheddar Cheese Block (8 oz)",
-        "sku": "DAIRY-CHZ-CHED",
-        "quantity": 1,
-        "unit_price": 4.99
-      },
-      {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
-        "quantity": 1,
-        "unit_price": 3.79
-      }
-    ],
-    "payment_method": "bank_transfer",
-    "requested_delivery_date": "2025-07-14T01:43:57.586250Z"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST002",
-      "first_name": "Sarah",
-      "last_name": "Johnson",
-      "email": "sarah.johnson@email.com",
-      "phone": "+1-555-234-5678",
-      "billing_address": {
-        "street": "456 Oak Ave",
-        "city": "Madison",
-        "state": "WI",
-        "postal_code": "53703",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM008",
-        "product_name": "Iceberg Lettuce Head",
-        "sku": "VEG-LET-ICE",
-        "quantity": 2,
-        "unit_price": 1.99
-      },
-      {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
-        "quantity": 2,
-        "unit_price": 3.79
-      },
-      {
-        "item_id": "ITEM005",
-        "product_name": "Ground Beef 80/20 (1 lb)",
-        "sku": "MEAT-BEEF-GRD",
-        "quantity": 3,
-        "unit_price": 6.99,
-        "discount_percent": 10
-      },
-      {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 3,
-        "unit_price": 2.49
-      }
-    ],
-    "payment_method": "credit_card",
-    "notes": "Call before delivery",
-    "requested_delivery_date": "2025-07-08T01:43:57.586283Z"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST001",
-      "first_name": "John",
-      "last_name": "Smith",
-      "email": "john.smith@email.com",
-      "phone": "+1-555-123-4567",
-      "billing_address": {
-        "street": "123 Main St",
-        "city": "Springfield",
-        "state": "IL",
-        "postal_code": "62701",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM004",
-        "product_name": "Free Range Eggs (12 count)",
-        "sku": "DAIRY-EGG-FR",
-        "quantity": 3,
-        "unit_price": 5.99,
-        "discount_percent": 5
-      },
-      {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
-        "quantity": 1,
-        "unit_price": 4.49
-      },
-      {
-        "item_id": "ITEM009",
-        "product_name": "Cheddar Cheese Block (8 oz)",
-        "sku": "DAIRY-CHZ-CHED",
-        "quantity": 1,
-        "unit_price": 4.99
-      },
-      {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
-        "quantity": 1,
-        "unit_price": 3.79
-      },
-      {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 2,
-        "unit_price": 2.49
-      }
-    ],
-    "payment_method": "debit_card"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST003",
-      "first_name": "Michael",
-      "last_name": "Brown",
-      "email": "michael.brown@email.com",
-      "phone": "+1-555-345-6789",
-      "billing_address": {
-        "street": "789 Pine Rd",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "792 Second St",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM001",
-        "product_name": "Organic Bananas",
-        "sku": "FRUIT-BAN-ORG",
-        "quantity": 3,
-        "unit_price": 2.99,
-        "discount_percent": 15
-      }
-    ],
-    "payment_method": "bank_transfer",
-    "order_number": "ORD-2024-0004"
-  },
-  {
-    "customer": {
       "customer_id": "CUST003",
       "first_name": "Michael",
       "last_name": "Brown",
@@ -196,20 +15,6 @@
       }
     },
     "items": [
-      {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
-        "quantity": 1,
-        "unit_price": 4.49
-      },
-      {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
-        "quantity": 1,
-        "unit_price": 3.79
-      },
       {
         "item_id": "ITEM003",
         "product_name": "Sourdough Bread Loaf",
@@ -221,228 +26,11 @@
         "item_id": "ITEM004",
         "product_name": "Free Range Eggs (12 count)",
         "sku": "DAIRY-EGG-FR",
-        "quantity": 3,
-        "unit_price": 5.99,
-        "discount_percent": 5
-      }
-    ],
-    "payment_method": "bank_transfer"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST004",
-      "first_name": "Emily",
-      "last_name": "Davis",
-      "email": "emily.davis@email.com",
-      "phone": "+1-555-456-7890",
-      "billing_address": {
-        "street": "321 Elm St",
-        "city": "Portland",
-        "state": "OR",
-        "postal_code": "97201",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 1,
-        "unit_price": 2.49
-      },
-      {
-        "item_id": "ITEM008",
-        "product_name": "Iceberg Lettuce Head",
-        "sku": "VEG-LET-ICE",
-        "quantity": 4,
-        "unit_price": 1.99,
-        "discount_percent": 10
-      }
-    ],
-    "payment_method": "paypal",
-    "order_number": "ORD-2024-0006"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST003",
-      "first_name": "Michael",
-      "last_name": "Brown",
-      "email": "michael.brown@email.com",
-      "phone": "+1-555-345-6789",
-      "billing_address": {
-        "street": "789 Pine Rd",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "701 Second St",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 3,
-        "unit_price": 2.49
-      },
-      {
-        "item_id": "ITEM006",
-        "product_name": "Chicken Breast Boneless (1 lb)",
-        "sku": "MEAT-CHKN-BRS",
-        "quantity": 3,
-        "unit_price": 8.99
-      }
-    ],
-    "payment_method": "bank_transfer",
-    "requested_delivery_date": "2025-07-12T01:43:57.586354Z"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST004",
-      "first_name": "Emily",
-      "last_name": "Davis",
-      "email": "emily.davis@email.com",
-      "phone": "+1-555-456-7890",
-      "billing_address": {
-        "street": "321 Elm St",
-        "city": "Portland",
-        "state": "OR",
-        "postal_code": "97201",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM001",
-        "product_name": "Organic Bananas",
-        "sku": "FRUIT-BAN-ORG",
-        "quantity": 3,
-        "unit_price": 2.99
-      }
-    ],
-    "payment_method": "bank_transfer",
-    "order_number": "ORD-2024-0008",
-    "requested_delivery_date": "2025-07-13T01:43:57.586364Z"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST001",
-      "first_name": "John",
-      "last_name": "Smith",
-      "email": "john.smith@email.com",
-      "phone": "+1-555-123-4567",
-      "billing_address": {
-        "street": "123 Main St",
-        "city": "Springfield",
-        "state": "IL",
-        "postal_code": "62701",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
         "quantity": 2,
-        "unit_price": 3.79
-      },
-      {
-        "item_id": "ITEM008",
-        "product_name": "Iceberg Lettuce Head",
-        "sku": "VEG-LET-ICE",
-        "quantity": 1,
-        "unit_price": 1.99
-      },
-      {
-        "item_id": "ITEM004",
-        "product_name": "Free Range Eggs (12 count)",
-        "sku": "DAIRY-EGG-FR",
-        "quantity": 3,
         "unit_price": 5.99
-      },
-      {
-        "item_id": "ITEM003",
-        "product_name": "Sourdough Bread Loaf",
-        "sku": "BAKERY-BRD-SOUR",
-        "quantity": 2,
-        "unit_price": 3.99
       }
     ],
-    "payment_method": "credit_card",
-    "order_number": "ORD-2024-0009"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST003",
-      "first_name": "Michael",
-      "last_name": "Brown",
-      "email": "michael.brown@email.com",
-      "phone": "+1-555-345-6789",
-      "billing_address": {
-        "street": "789 Pine Rd",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "641 Second St",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM006",
-        "product_name": "Chicken Breast Boneless (1 lb)",
-        "sku": "MEAT-CHKN-BRS",
-        "quantity": 1,
-        "unit_price": 8.99
-      },
-      {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
-        "quantity": 2,
-        "unit_price": 4.49,
-        "discount_percent": 10
-      },
-      {
-        "item_id": "ITEM003",
-        "product_name": "Sourdough Bread Loaf",
-        "sku": "BAKERY-BRD-SOUR",
-        "quantity": 3,
-        "unit_price": 3.99,
-        "discount_percent": 5
-      },
-      {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 1,
-        "unit_price": 2.49
-      },
-      {
-        "item_id": "ITEM005",
-        "product_name": "Ground Beef 80/20 (1 lb)",
-        "sku": "MEAT-BEEF-GRD",
-        "quantity": 1,
-        "unit_price": 6.99
-      }
-    ],
-    "payment_method": "paypal",
-    "order_number": "ORD-2024-0010"
+    "payment_method": "paypal"
   },
   {
     "customer": {
@@ -461,14 +49,422 @@
     },
     "items": [
       {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 2,
+        "unit_price": 6.99,
+        "discount_percent": 15
+      }
+    ],
+    "payment_method": "bank_transfer",
+    "order_number": "ORD-2024-0002",
+    "requested_delivery_date": "2025-07-10T02:42:56.634172Z"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST005",
+      "first_name": "David",
+      "last_name": "Wilson",
+      "email": "david.wilson@email.com",
+      "phone": "+1-555-567-8901",
+      "billing_address": {
+        "street": "654 Maple Dr",
+        "city": "Denver",
+        "state": "CO",
+        "postal_code": "80202",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
+        "quantity": 2,
+        "unit_price": 4.99
+      },
+      {
+        "item_id": "ITEM008",
+        "product_name": "Iceberg Lettuce Head",
+        "sku": "VEG-LET-ICE",
+        "quantity": 4,
+        "unit_price": 1.99
+      },
+      {
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
+        "quantity": 1,
+        "unit_price": 3.79
+      },
+      {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 3,
+        "unit_price": 6.99
+      }
+    ],
+    "payment_method": "paypal",
+    "requested_delivery_date": "2025-07-14T02:42:56.634201Z"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST002",
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "email": "sarah.johnson@email.com",
+      "phone": "+1-555-234-5678",
+      "billing_address": {
+        "street": "456 Oak Ave",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      },
+      "shipping_address": {
+        "street": "102 Third St",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM001",
+        "product_name": "Organic Bananas",
+        "sku": "FRUIT-BAN-ORG",
+        "quantity": 3,
+        "unit_price": 2.99
+      },
+      {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 3,
+        "unit_price": 6.99
+      },
+      {
+        "item_id": "ITEM003",
+        "product_name": "Sourdough Bread Loaf",
+        "sku": "BAKERY-BRD-SOUR",
+        "quantity": 1,
+        "unit_price": 3.99,
+        "discount_percent": 10
+      }
+    ],
+    "payment_method": "credit_card",
+    "notes": "Please deliver to front door"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST003",
+      "first_name": "Michael",
+      "last_name": "Brown",
+      "email": "michael.brown@email.com",
+      "phone": "+1-555-345-6789",
+      "billing_address": {
+        "street": "789 Pine Rd",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "73301",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
+        "quantity": 2,
+        "unit_price": 3.79,
+        "discount_percent": 10
+      },
+      {
+        "item_id": "ITEM008",
+        "product_name": "Iceberg Lettuce Head",
+        "sku": "VEG-LET-ICE",
+        "quantity": 1,
+        "unit_price": 1.99
+      }
+    ],
+    "payment_method": "bank_transfer",
+    "order_number": "ORD-2024-0005"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST002",
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "email": "sarah.johnson@email.com",
+      "phone": "+1-555-234-5678",
+      "billing_address": {
+        "street": "456 Oak Ave",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      },
+      "shipping_address": {
+        "street": "650 Third St",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 1,
+        "unit_price": 6.99
+      },
+      {
+        "item_id": "ITEM004",
+        "product_name": "Free Range Eggs (12 count)",
+        "sku": "DAIRY-EGG-FR",
+        "quantity": 2,
+        "unit_price": 5.99
+      },
+      {
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
+        "quantity": 1,
+        "unit_price": 4.99,
+        "discount_percent": 15
+      },
+      {
         "item_id": "ITEM001",
         "product_name": "Organic Bananas",
         "sku": "FRUIT-BAN-ORG",
         "quantity": 2,
         "unit_price": 2.99
+      },
+      {
+        "item_id": "ITEM006",
+        "product_name": "Chicken Breast Boneless (1 lb)",
+        "sku": "MEAT-CHKN-BRS",
+        "quantity": 1,
+        "unit_price": 8.99
       }
     ],
-    "payment_method": "credit_card",
+    "payment_method": "paypal",
+    "order_number": "ORD-2024-0006",
+    "requested_delivery_date": "2025-07-12T02:42:56.634261Z"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST004",
+      "first_name": "Emily",
+      "last_name": "Davis",
+      "email": "emily.davis@email.com",
+      "phone": "+1-555-456-7890",
+      "billing_address": {
+        "street": "321 Elm St",
+        "city": "Portland",
+        "state": "OR",
+        "postal_code": "97201",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 1,
+        "unit_price": 6.99,
+        "discount_percent": 5
+      }
+    ],
+    "payment_method": "debit_card",
+    "order_number": "ORD-2024-0007",
+    "notes": "Please deliver to front door"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST004",
+      "first_name": "Emily",
+      "last_name": "Davis",
+      "email": "emily.davis@email.com",
+      "phone": "+1-555-456-7890",
+      "billing_address": {
+        "street": "321 Elm St",
+        "city": "Portland",
+        "state": "OR",
+        "postal_code": "97201",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM001",
+        "product_name": "Organic Bananas",
+        "sku": "FRUIT-BAN-ORG",
+        "quantity": 3,
+        "unit_price": 2.99
+      },
+      {
+        "item_id": "ITEM004",
+        "product_name": "Free Range Eggs (12 count)",
+        "sku": "DAIRY-EGG-FR",
+        "quantity": 3,
+        "unit_price": 5.99
+      },
+      {
+        "item_id": "ITEM002",
+        "product_name": "Whole Milk 1 Gallon",
+        "sku": "DAIRY-MILK-WHL",
+        "quantity": 1,
+        "unit_price": 4.49,
+        "discount_percent": 10
+      },
+      {
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
+        "quantity": 2,
+        "unit_price": 4.99,
+        "discount_percent": 10
+      }
+    ],
+    "payment_method": "paypal"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST002",
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "email": "sarah.johnson@email.com",
+      "phone": "+1-555-234-5678",
+      "billing_address": {
+        "street": "456 Oak Ave",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM001",
+        "product_name": "Organic Bananas",
+        "sku": "FRUIT-BAN-ORG",
+        "quantity": 1,
+        "unit_price": 2.99
+      },
+      {
+        "item_id": "ITEM006",
+        "product_name": "Chicken Breast Boneless (1 lb)",
+        "sku": "MEAT-CHKN-BRS",
+        "quantity": 1,
+        "unit_price": 8.99
+      },
+      {
+        "item_id": "ITEM002",
+        "product_name": "Whole Milk 1 Gallon",
+        "sku": "DAIRY-MILK-WHL",
+        "quantity": 2,
+        "unit_price": 4.49
+      }
+    ],
+    "payment_method": "debit_card",
+    "order_number": "ORD-2024-0009"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST002",
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "email": "sarah.johnson@email.com",
+      "phone": "+1-555-234-5678",
+      "billing_address": {
+        "street": "456 Oak Ave",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      },
+      "shipping_address": {
+        "street": "732 Third St",
+        "city": "Madison",
+        "state": "WI",
+        "postal_code": "53703",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM007",
+        "product_name": "Roma Tomatoes (1 lb)",
+        "sku": "VEG-TOM-ROMA",
+        "quantity": 2,
+        "unit_price": 2.49,
+        "discount_percent": 10
+      }
+    ],
+    "payment_method": "bank_transfer",
+    "order_number": "ORD-2024-0010"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST001",
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "john.smith@email.com",
+      "phone": "+1-555-123-4567",
+      "billing_address": {
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "postal_code": "62701",
+        "country": "USA"
+      },
+      "shipping_address": {
+        "street": "284 Third St",
+        "city": "Springfield",
+        "state": "IL",
+        "postal_code": "62701",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM006",
+        "product_name": "Chicken Breast Boneless (1 lb)",
+        "sku": "MEAT-CHKN-BRS",
+        "quantity": 1,
+        "unit_price": 8.99
+      },
+      {
+        "item_id": "ITEM003",
+        "product_name": "Sourdough Bread Loaf",
+        "sku": "BAKERY-BRD-SOUR",
+        "quantity": 3,
+        "unit_price": 3.99,
+        "discount_percent": 20
+      },
+      {
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
+        "quantity": 3,
+        "unit_price": 4.99
+      },
+      {
+        "item_id": "ITEM007",
+        "product_name": "Roma Tomatoes (1 lb)",
+        "sku": "VEG-TOM-ROMA",
+        "quantity": 1,
+        "unit_price": 2.49
+      }
+    ],
+    "payment_method": "debit_card",
     "order_number": "ORD-2024-0011"
   },
   {
@@ -484,51 +480,9 @@
         "state": "WI",
         "postal_code": "53703",
         "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 3,
-        "unit_price": 2.49
       },
-      {
-        "item_id": "ITEM004",
-        "product_name": "Free Range Eggs (12 count)",
-        "sku": "DAIRY-EGG-FR",
-        "quantity": 4,
-        "unit_price": 5.99,
-        "discount_percent": 5
-      },
-      {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
-        "quantity": 1,
-        "unit_price": 4.49
-      },
-      {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
-        "quantity": 2,
-        "unit_price": 3.79
-      }
-    ],
-    "payment_method": "credit_card",
-    "notes": "Fragile items - handle with care"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST002",
-      "first_name": "Sarah",
-      "last_name": "Johnson",
-      "email": "sarah.johnson@email.com",
-      "phone": "+1-555-234-5678",
-      "billing_address": {
-        "street": "456 Oak Ave",
+      "shipping_address": {
+        "street": "560 First St",
         "city": "Madison",
         "state": "WI",
         "postal_code": "53703",
@@ -537,18 +491,82 @@
     },
     "items": [
       {
-        "item_id": "ITEM007",
-        "product_name": "Roma Tomatoes (1 lb)",
-        "sku": "VEG-TOM-ROMA",
-        "quantity": 1,
-        "unit_price": 2.49
+        "item_id": "ITEM006",
+        "product_name": "Chicken Breast Boneless (1 lb)",
+        "sku": "MEAT-CHKN-BRS",
+        "quantity": 2,
+        "unit_price": 8.99,
+        "discount_percent": 20
       },
       {
-        "item_id": "ITEM005",
-        "product_name": "Ground Beef 80/20 (1 lb)",
-        "sku": "MEAT-BEEF-GRD",
+        "item_id": "ITEM003",
+        "product_name": "Sourdough Bread Loaf",
+        "sku": "BAKERY-BRD-SOUR",
+        "quantity": 1,
+        "unit_price": 3.99
+      },
+      {
+        "item_id": "ITEM008",
+        "product_name": "Iceberg Lettuce Head",
+        "sku": "VEG-LET-ICE",
+        "quantity": 3,
+        "unit_price": 1.99
+      },
+      {
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
         "quantity": 2,
-        "unit_price": 6.99
+        "unit_price": 4.99,
+        "discount_percent": 10
+      },
+      {
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
+        "quantity": 1,
+        "unit_price": 3.79
+      }
+    ],
+    "payment_method": "bank_transfer",
+    "order_number": "ORD-2024-0012"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST004",
+      "first_name": "Emily",
+      "last_name": "Davis",
+      "email": "emily.davis@email.com",
+      "phone": "+1-555-456-7890",
+      "billing_address": {
+        "street": "321 Elm St",
+        "city": "Portland",
+        "state": "OR",
+        "postal_code": "97201",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM001",
+        "product_name": "Organic Bananas",
+        "sku": "FRUIT-BAN-ORG",
+        "quantity": 1,
+        "unit_price": 2.99
+      },
+      {
+        "item_id": "ITEM006",
+        "product_name": "Chicken Breast Boneless (1 lb)",
+        "sku": "MEAT-CHKN-BRS",
+        "quantity": 2,
+        "unit_price": 8.99
+      },
+      {
+        "item_id": "ITEM003",
+        "product_name": "Sourdough Bread Loaf",
+        "sku": "BAKERY-BRD-SOUR",
+        "quantity": 1,
+        "unit_price": 3.99
       }
     ],
     "payment_method": "credit_card",
@@ -556,6 +574,48 @@
   },
   {
     "customer": {
+      "customer_id": "CUST003",
+      "first_name": "Michael",
+      "last_name": "Brown",
+      "email": "michael.brown@email.com",
+      "phone": "+1-555-345-6789",
+      "billing_address": {
+        "street": "789 Pine Rd",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "73301",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM004",
+        "product_name": "Free Range Eggs (12 count)",
+        "sku": "DAIRY-EGG-FR",
+        "quantity": 4,
+        "unit_price": 5.99
+      },
+      {
+        "item_id": "ITEM008",
+        "product_name": "Iceberg Lettuce Head",
+        "sku": "VEG-LET-ICE",
+        "quantity": 2,
+        "unit_price": 1.99
+      },
+      {
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
+        "quantity": 2,
+        "unit_price": 4.99
+      }
+    ],
+    "payment_method": "debit_card",
+    "order_number": "ORD-2024-0014",
+    "requested_delivery_date": "2025-07-11T02:42:56.634350Z"
+  },
+  {
+    "customer": {
       "customer_id": "CUST005",
       "first_name": "David",
       "last_name": "Wilson",
@@ -571,256 +631,103 @@
     },
     "items": [
       {
-        "item_id": "ITEM004",
-        "product_name": "Free Range Eggs (12 count)",
-        "sku": "DAIRY-EGG-FR",
-        "quantity": 2,
-        "unit_price": 5.99
-      },
-      {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
+        "item_id": "ITEM007",
+        "product_name": "Roma Tomatoes (1 lb)",
+        "sku": "VEG-TOM-ROMA",
         "quantity": 1,
-        "unit_price": 4.49
-      },
-      {
-        "item_id": "ITEM009",
-        "product_name": "Cheddar Cheese Block (8 oz)",
-        "sku": "DAIRY-CHZ-CHED",
-        "quantity": 2,
-        "unit_price": 4.99
-      },
-      {
-        "item_id": "ITEM008",
-        "product_name": "Iceberg Lettuce Head",
-        "sku": "VEG-LET-ICE",
-        "quantity": 2,
-        "unit_price": 1.99
-      }
-    ],
-    "payment_method": "debit_card"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST003",
-      "first_name": "Michael",
-      "last_name": "Brown",
-      "email": "michael.brown@email.com",
-      "phone": "+1-555-345-6789",
-      "billing_address": {
-        "street": "789 Pine Rd",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "699 First St",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM009",
-        "product_name": "Cheddar Cheese Block (8 oz)",
-        "sku": "DAIRY-CHZ-CHED",
-        "quantity": 2,
-        "unit_price": 4.99
-      },
-      {
-        "item_id": "ITEM001",
-        "product_name": "Organic Bananas",
-        "sku": "FRUIT-BAN-ORG",
-        "quantity": 1,
-        "unit_price": 2.99
-      }
-    ],
-    "payment_method": "bank_transfer",
-    "order_number": "ORD-2024-0015"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST003",
-      "first_name": "Michael",
-      "last_name": "Brown",
-      "email": "michael.brown@email.com",
-      "phone": "+1-555-345-6789",
-      "billing_address": {
-        "street": "789 Pine Rd",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "691 Third St",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM008",
-        "product_name": "Iceberg Lettuce Head",
-        "sku": "VEG-LET-ICE",
-        "quantity": 2,
-        "unit_price": 1.99
-      },
-      {
-        "item_id": "ITEM009",
-        "product_name": "Cheddar Cheese Block (8 oz)",
-        "sku": "DAIRY-CHZ-CHED",
-        "quantity": 2,
-        "unit_price": 4.99
-      },
-      {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
-        "quantity": 2,
-        "unit_price": 4.49
-      }
-    ],
-    "payment_method": "paypal",
-    "requested_delivery_date": "2025-07-12T01:43:57.586446Z"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST005",
-      "first_name": "David",
-      "last_name": "Wilson",
-      "email": "david.wilson@email.com",
-      "phone": "+1-555-567-8901",
-      "billing_address": {
-        "street": "654 Maple Dr",
-        "city": "Denver",
-        "state": "CO",
-        "postal_code": "80202",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "718 Third St",
-        "city": "Denver",
-        "state": "CO",
-        "postal_code": "80202",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM009",
-        "product_name": "Cheddar Cheese Block (8 oz)",
-        "sku": "DAIRY-CHZ-CHED",
-        "quantity": 1,
-        "unit_price": 4.99
-      },
-      {
-        "item_id": "ITEM004",
-        "product_name": "Free Range Eggs (12 count)",
-        "sku": "DAIRY-EGG-FR",
-        "quantity": 3,
-        "unit_price": 5.99
-      }
-    ],
-    "payment_method": "credit_card",
-    "order_number": "ORD-2024-0017",
-    "notes": "Leave at doorstep if no answer",
-    "requested_delivery_date": "2025-07-14T01:43:57.586461Z"
-  },
-  {
-    "customer": {
-      "customer_id": "CUST003",
-      "first_name": "Michael",
-      "last_name": "Brown",
-      "email": "michael.brown@email.com",
-      "phone": "+1-555-345-6789",
-      "billing_address": {
-        "street": "789 Pine Rd",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "803 First St",
-        "city": "Austin",
-        "state": "TX",
-        "postal_code": "73301",
-        "country": "USA"
-      }
-    },
-    "items": [
-      {
-        "item_id": "ITEM006",
-        "product_name": "Chicken Breast Boneless (1 lb)",
-        "sku": "MEAT-CHKN-BRS",
-        "quantity": 3,
-        "unit_price": 8.99
+        "unit_price": 2.49
       },
       {
         "item_id": "ITEM004",
         "product_name": "Free Range Eggs (12 count)",
         "sku": "DAIRY-EGG-FR",
         "quantity": 4,
-        "unit_price": 5.99,
-        "discount_percent": 10
+        "unit_price": 5.99
       },
       {
-        "item_id": "ITEM001",
-        "product_name": "Organic Bananas",
-        "sku": "FRUIT-BAN-ORG",
+        "item_id": "ITEM009",
+        "product_name": "Cheddar Cheese Block (8 oz)",
+        "sku": "DAIRY-CHZ-CHED",
         "quantity": 2,
-        "unit_price": 2.99
+        "unit_price": 4.99
       }
     ],
-    "payment_method": "debit_card",
-    "order_number": "ORD-2024-0018",
-    "notes": "Call before delivery",
-    "requested_delivery_date": "2025-07-11T01:43:57.586475Z"
+    "payment_method": "paypal",
+    "order_number": "ORD-2024-0015",
+    "notes": "Call before delivery"
   },
   {
     "customer": {
-      "customer_id": "CUST002",
-      "first_name": "Sarah",
-      "last_name": "Johnson",
-      "email": "sarah.johnson@email.com",
-      "phone": "+1-555-234-5678",
+      "customer_id": "CUST001",
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "john.smith@email.com",
+      "phone": "+1-555-123-4567",
       "billing_address": {
-        "street": "456 Oak Ave",
-        "city": "Madison",
-        "state": "WI",
-        "postal_code": "53703",
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "postal_code": "62701",
         "country": "USA"
       }
     },
     "items": [
       {
-        "item_id": "ITEM010",
-        "product_name": "Orange Juice (64 oz)",
-        "sku": "BEV-JUICE-ORA",
-        "quantity": 2,
-        "unit_price": 3.79,
-        "discount_percent": 5
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 1,
+        "unit_price": 6.99
       },
       {
         "item_id": "ITEM002",
         "product_name": "Whole Milk 1 Gallon",
         "sku": "DAIRY-MILK-WHL",
-        "quantity": 1,
+        "quantity": 2,
         "unit_price": 4.49
+      }
+    ],
+    "payment_method": "bank_transfer",
+    "order_number": "ORD-2024-0016",
+    "notes": "Please deliver to front door"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST003",
+      "first_name": "Michael",
+      "last_name": "Brown",
+      "email": "michael.brown@email.com",
+      "phone": "+1-555-345-6789",
+      "billing_address": {
+        "street": "789 Pine Rd",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "73301",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM004",
+        "product_name": "Free Range Eggs (12 count)",
+        "sku": "DAIRY-EGG-FR",
+        "quantity": 2,
+        "unit_price": 5.99
       },
       {
-        "item_id": "ITEM006",
-        "product_name": "Chicken Breast Boneless (1 lb)",
-        "sku": "MEAT-CHKN-BRS",
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
         "quantity": 2,
-        "unit_price": 8.99
+        "unit_price": 3.79
+      },
+      {
+        "item_id": "ITEM008",
+        "product_name": "Iceberg Lettuce Head",
+        "sku": "VEG-LET-ICE",
+        "quantity": 4,
+        "unit_price": 1.99,
+        "discount_percent": 5
       },
       {
         "item_id": "ITEM005",
@@ -830,40 +737,32 @@
         "unit_price": 6.99
       }
     ],
-    "payment_method": "debit_card",
-    "order_number": "ORD-2024-0019",
-    "notes": "Rush delivery requested",
-    "requested_delivery_date": "2025-07-14T01:43:57.586489Z"
+    "payment_method": "bank_transfer",
+    "order_number": "ORD-2024-0017",
+    "notes": "Please deliver to front door"
   },
   {
     "customer": {
-      "customer_id": "CUST005",
-      "first_name": "David",
-      "last_name": "Wilson",
-      "email": "david.wilson@email.com",
-      "phone": "+1-555-567-8901",
+      "customer_id": "CUST001",
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "john.smith@email.com",
+      "phone": "+1-555-123-4567",
       "billing_address": {
-        "street": "654 Maple Dr",
-        "city": "Denver",
-        "state": "CO",
-        "postal_code": "80202",
-        "country": "USA"
-      },
-      "shipping_address": {
-        "street": "837 Second St",
-        "city": "Denver",
-        "state": "CO",
-        "postal_code": "80202",
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "postal_code": "62701",
         "country": "USA"
       }
     },
     "items": [
       {
-        "item_id": "ITEM006",
-        "product_name": "Chicken Breast Boneless (1 lb)",
-        "sku": "MEAT-CHKN-BRS",
-        "quantity": 1,
-        "unit_price": 8.99
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
+        "quantity": 2,
+        "unit_price": 3.79
       },
       {
         "item_id": "ITEM001",
@@ -871,6 +770,34 @@
         "sku": "FRUIT-BAN-ORG",
         "quantity": 2,
         "unit_price": 2.99
+      }
+    ],
+    "payment_method": "paypal",
+    "order_number": "ORD-2024-0018",
+    "requested_delivery_date": "2025-07-14T02:42:56.634391Z"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST004",
+      "first_name": "Emily",
+      "last_name": "Davis",
+      "email": "emily.davis@email.com",
+      "phone": "+1-555-456-7890",
+      "billing_address": {
+        "street": "321 Elm St",
+        "city": "Portland",
+        "state": "OR",
+        "postal_code": "97201",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 1,
+        "unit_price": 6.99
       },
       {
         "item_id": "ITEM007",
@@ -880,16 +807,81 @@
         "unit_price": 2.49
       },
       {
-        "item_id": "ITEM002",
-        "product_name": "Whole Milk 1 Gallon",
-        "sku": "DAIRY-MILK-WHL",
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
         "quantity": 1,
-        "unit_price": 4.49
+        "unit_price": 3.79
       }
     ],
     "payment_method": "debit_card",
+    "order_number": "ORD-2024-0019",
+    "notes": "Rush delivery requested",
+    "requested_delivery_date": "2025-07-14T02:42:56.634404Z"
+  },
+  {
+    "customer": {
+      "customer_id": "CUST003",
+      "first_name": "Michael",
+      "last_name": "Brown",
+      "email": "michael.brown@email.com",
+      "phone": "+1-555-345-6789",
+      "billing_address": {
+        "street": "789 Pine Rd",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "73301",
+        "country": "USA"
+      },
+      "shipping_address": {
+        "street": "494 Third St",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "73301",
+        "country": "USA"
+      }
+    },
+    "items": [
+      {
+        "item_id": "ITEM007",
+        "product_name": "Roma Tomatoes (1 lb)",
+        "sku": "VEG-TOM-ROMA",
+        "quantity": 1,
+        "unit_price": 2.49,
+        "discount_percent": 10
+      },
+      {
+        "item_id": "ITEM010",
+        "product_name": "Orange Juice (64 oz)",
+        "sku": "BEV-JUICE-ORA",
+        "quantity": 1,
+        "unit_price": 3.79
+      },
+      {
+        "item_id": "ITEM002",
+        "product_name": "Whole Milk 1 Gallon",
+        "sku": "DAIRY-MILK-WHL",
+        "quantity": 2,
+        "unit_price": 4.49
+      },
+      {
+        "item_id": "ITEM004",
+        "product_name": "Free Range Eggs (12 count)",
+        "sku": "DAIRY-EGG-FR",
+        "quantity": 3,
+        "unit_price": 5.99,
+        "discount_percent": 15
+      },
+      {
+        "item_id": "ITEM005",
+        "product_name": "Ground Beef 80/20 (1 lb)",
+        "sku": "MEAT-BEEF-GRD",
+        "quantity": 3,
+        "unit_price": 6.99
+      }
+    ],
+    "payment_method": "paypal",
     "order_number": "ORD-2024-0020",
-    "notes": "Call before delivery",
-    "requested_delivery_date": "2025-07-13T01:43:57.586521Z"
+    "notes": "Rush delivery requested"
   }
 ]

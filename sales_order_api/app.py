@@ -2,7 +2,7 @@
 Sales Order API
 
 A comprehensive RESTful API for managing sales orders with full CRUD operations,
-built with AWS Lambda Powertools for observability and Pydantic for data validation.
+built with AWS Lambda Powertools for observability and DynamoDB for persistent storage.
 """
 
 import uuid
@@ -28,7 +28,7 @@ from models import (
     SalesOrderResponse,
     SalesOrdersListResponse,
 )
-from openapi_spec import get_openapi_spec
+from storage import storage
 
 # Initialize Powertools
 tracer = Tracer()
@@ -66,24 +66,9 @@ app.enable_swagger(
     compress=True  # Compress the embedded assets for better performance
 )
 
-# In-memory storage for development (replace with database in production)
-orders_storage: dict[str, SalesOrder] = {}
-
-
-def generate_order_id() -> str:
-    """Generate a unique order ID."""
-    return str(uuid.uuid4())
-
 
 def order_to_response(order: SalesOrder) -> SalesOrderResponse:
-    """Convert SalesOrder to SalesOrderResponse."""
-    # Calculate computed fields manually using correct property names
-    subtotal_amount = sum(item.subtotal for item in order.items)
-    discount_amount = sum(item.discount_amount for item in order.items)
-    tax_amount = sum(item.tax_amount for item in order.items)
-    total_amount = sum(item.total_amount for item in order.items)
-    item_count = sum(item.quantity for item in order.items)
-    
+    """Convert SalesOrder to SalesOrderResponse with calculated fields."""
     return SalesOrderResponse(
         order_id=order.order_id,
         order_number=order.order_number,
@@ -92,15 +77,15 @@ def order_to_response(order: SalesOrder) -> SalesOrderResponse:
         status=order.status,
         payment_method=order.payment_method,
         currency=order.currency,
-        subtotal_amount=subtotal_amount,
-        tax_amount=tax_amount,
-        discount_amount=discount_amount,
-        total_amount=total_amount,
-        item_count=item_count,
+        subtotal_amount=order.subtotal,
+        discount_amount=order.total_discount,
+        tax_amount=order.total_tax,
+        total_amount=order.total_amount,
+        item_count=order.item_count,
         created_at=order.created_at,
         updated_at=order.updated_at,
         requested_delivery_date=order.requested_delivery_date,
-        notes=order.notes
+        notes=order.notes,
     )
 
 
@@ -113,52 +98,43 @@ def health_check():
     
     Returns the current health status of the API service.
     """
+    try:
+        orders_count = storage.count_orders()
+    except Exception as e:
+        logger.error(f"Failed to get orders count: {e}")
+        orders_count = "unavailable"
+    
     return {
         "status": "healthy",
         "service": "SalesOrderAPI",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "version": "1.0.0",
-        "orders_count": len(orders_storage)
+        "orders_count": orders_count
     }
 
 
-# OpenAPI specification endpoint (no authentication required)
-@app.get("/openapi.json")
-@tracer.capture_method
-def get_openapi():
-    """
-    Get OpenAPI 3.0 specification.
-    
-    Returns the complete OpenAPI specification for this API.
-    """
-    return get_openapi_spec()
-
-
-# Order CRUD operations (require authentication)
 @app.post("/orders")
 @tracer.capture_method
 def create_order(order_data: SalesOrderCreate) -> SalesOrderResponse:
     """
     Create a new sales order.
     
-    Creates a new sales order with the provided customer and item information.
-    The order is assigned a unique ID and initial status of 'draft'.
+    Creates a new order with the provided customer and item information.
+    Returns the created order with calculated totals and assigned ID.
     """
     try:
-        # Create new order
+        # Create SalesOrder from input data
         order = SalesOrder(
-            order_id=generate_order_id(),
             customer=order_data.customer,
             items=order_data.items,
             payment_method=order_data.payment_method,
-            currency=order_data.currency,
+            order_number=order_data.order_number,
             requested_delivery_date=order_data.requested_delivery_date,
             notes=order_data.notes,
-            order_number=order_data.order_number
         )
         
-        # Store order
-        orders_storage[order.order_id] = order
+        # Store order in DynamoDB
+        storage.create_order(order)
         
         # Add metrics
         metrics.add_metric(name="OrderCreated", unit=MetricUnit.Count, value=1)
@@ -167,26 +143,36 @@ def create_order(order_data: SalesOrderCreate) -> SalesOrderResponse:
         # Add tracing annotations
         tracer.put_annotation(key="OrderId", value=order.order_id)
         tracer.put_annotation(key="CustomerId", value=order.customer.customer_id)
-        tracer.put_annotation(key="OrderStatus", value=order.status.value)
+        tracer.put_annotation(key="OrderValue", value=str(order.total_amount))
         
         logger.info(
             "Order created successfully",
             extra={
                 "order_id": order.order_id,
                 "customer_id": order.customer.customer_id,
-                "total_amount": float(order.total_amount),
+                "total_amount": str(order.total_amount),
                 "item_count": order.item_count
             }
         )
         
-        return order_to_response(order), 201
+        # Return with 201 status code
+        return Response(
+            status_code=201,
+            content_type="application/json",
+            body=order_to_response(order).model_dump()
+        )
         
+    except ValidationError as e:
+        logger.error(f"Validation error creating order: {e}")
+        metrics.add_metric(name="OrderValidationError", unit=MetricUnit.Count, value=1)
+        raise BadRequestError(f"Invalid order data: {e}")
     except Exception as e:
-        logger.error("Order creation failed", extra={"error": str(e)})
+        logger.error(f"Failed to create order: {e}")
         metrics.add_metric(name="OrderCreationError", unit=MetricUnit.Count, value=1)
         raise InternalServerError(f"Failed to create order: {str(e)}")
 
 
+# List sales orders with filtering and pagination
 @app.get("/orders")
 @tracer.capture_method
 def list_orders(
@@ -204,32 +190,37 @@ def list_orders(
     Results are paginated with configurable page size.
     """
     try:
-        # Start with all orders
-        filtered_orders = list(orders_storage.values())
-        
-        # Apply filters
-        if status:
-            filtered_orders = [order for order in filtered_orders if order.status.value == status]
-        
-        if customer_id:
-            filtered_orders = [order for order in filtered_orders if order.customer.customer_id == customer_id]
-        
+        # Parse date filters if provided
+        from_dt = None
+        to_dt = None
         if from_date:
             from_dt = datetime.fromisoformat(from_date.replace('Z', '+00:00'))
-            filtered_orders = [order for order in filtered_orders if order.created_at >= from_dt]
-        
         if to_date:
             to_dt = datetime.fromisoformat(to_date.replace('Z', '+00:00'))
-            filtered_orders = [order for order in filtered_orders if order.created_at <= to_dt]
         
-        # Calculate pagination
-        total_count = len(filtered_orders)
+        # Get orders from DynamoDB with filtering
+        result = storage.list_orders(
+            status=status,
+            customer_id=customer_id,
+            from_date=from_dt,
+            to_date=to_dt,
+            page_size=page_size
+        )
+        
+        orders = result['orders']
+        
+        # Apply pagination (DynamoDB handles this, but we simulate for compatibility)
         start_idx = (page - 1) * page_size
         end_idx = start_idx + page_size
-        paginated_orders = filtered_orders[start_idx:end_idx]
+        paginated_orders = orders[start_idx:end_idx] if len(orders) > start_idx else []
         
         # Convert to response format
         order_responses = [order_to_response(order) for order in paginated_orders]
+        
+        # Calculate pagination info
+        total_count = len(orders)  # This is approximate for DynamoDB
+        has_next = len(orders) == page_size  # Simplified check
+        has_previous = page > 1
         
         # Add metrics
         metrics.add_metric(name="OrdersListed", unit=MetricUnit.Count, value=len(order_responses))
@@ -249,16 +240,17 @@ def list_orders(
             total_count=total_count,
             page=page,
             page_size=page_size,
-            has_next=end_idx < total_count,
-            has_previous=page > 1
+            has_next=has_next,
+            has_previous=has_previous
         )
         
     except Exception as e:
-        logger.error("Order listing failed", extra={"error": str(e)})
-        metrics.add_metric(name="OrderListingError", unit=MetricUnit.Count, value=1)
+        logger.error(f"Failed to list orders: {e}")
+        metrics.add_metric(name="OrderListError", unit=MetricUnit.Count, value=1)
         raise InternalServerError(f"Failed to list orders: {str(e)}")
 
 
+# Get a specific sales order
 @app.get("/orders/<order_id>")
 @tracer.capture_method
 def get_order(order_id: str) -> SalesOrderResponse:
@@ -269,10 +261,9 @@ def get_order(order_id: str) -> SalesOrderResponse:
     items, pricing, and current status.
     """
     try:
-        if order_id not in orders_storage:
+        order = storage.get_order(order_id)
+        if not order:
             raise NotFoundError(f"Order {order_id} not found")
-        
-        order = orders_storage[order_id]
         
         # Add tracing annotations
         tracer.put_annotation(key="OrderId", value=order_id)
@@ -281,55 +272,48 @@ def get_order(order_id: str) -> SalesOrderResponse:
         # Add metrics
         metrics.add_metric(name="OrderRetrieved", unit=MetricUnit.Count, value=1)
         
-        logger.info(
-            "Order retrieved successfully",
-            extra={
-                "order_id": order_id,
-                "customer_id": order.customer.customer_id,
-                "status": order.status.value
-            }
-        )
+        logger.info(f"Order retrieved successfully: {order_id}")
         
         return order_to_response(order)
         
     except NotFoundError:
+        metrics.add_metric(name="OrderNotFound", unit=MetricUnit.Count, value=1)
         raise
     except Exception as e:
-        logger.error("Order retrieval failed", extra={"error": str(e), "order_id": order_id})
+        logger.error(f"Failed to retrieve order {order_id}: {e}")
         metrics.add_metric(name="OrderRetrievalError", unit=MetricUnit.Count, value=1)
         raise InternalServerError(f"Failed to retrieve order: {str(e)}")
 
 
+# Update a sales order
 @app.put("/orders/<order_id>")
 @tracer.capture_method
 def update_order(order_id: str, order_data: SalesOrderCreate) -> SalesOrderResponse:
     """
     Update an existing sales order.
     
-    Replaces the order with new data while preserving the order ID,
-    creation timestamp, and updating the modification timestamp.
+    Updates the order with new information while preserving the original
+    order ID and creation timestamp.
     """
     try:
-        if order_id not in orders_storage:
+        existing_order = storage.get_order(order_id)
+        if not existing_order:
             raise NotFoundError(f"Order {order_id} not found")
-        
-        existing_order = orders_storage[order_id]
         
         # Create updated order preserving ID and creation time
         updated_order = SalesOrder(
-            order_id=order_id,
+            order_id=existing_order.order_id,
             customer=order_data.customer,
             items=order_data.items,
             payment_method=order_data.payment_method,
-            currency=order_data.currency,
+            order_number=order_data.order_number,
             requested_delivery_date=order_data.requested_delivery_date,
             notes=order_data.notes,
-            order_number=order_data.order_number,
-            created_at=existing_order.created_at  # Preserve original creation time
+            created_at=existing_order.created_at,  # Preserve original creation time
         )
         
         # Store updated order
-        orders_storage[order_id] = updated_order
+        storage.update_order(updated_order)
         
         # Add metrics
         metrics.add_metric(name="OrderUpdated", unit=MetricUnit.Count, value=1)
@@ -338,87 +322,80 @@ def update_order(order_id: str, order_data: SalesOrderCreate) -> SalesOrderRespo
         tracer.put_annotation(key="OrderId", value=order_id)
         tracer.put_annotation(key="OrderStatus", value=updated_order.status.value)
         
-        logger.info(
-            "Order updated successfully",
-            extra={
-                "order_id": order_id,
-                "customer_id": updated_order.customer.customer_id,
-                "total_amount": float(updated_order.total_amount)
-            }
-        )
+        logger.info(f"Order updated successfully: {order_id}")
         
         return order_to_response(updated_order)
         
     except NotFoundError:
+        metrics.add_metric(name="OrderUpdateNotFound", unit=MetricUnit.Count, value=1)
         raise
+    except ValidationError as e:
+        logger.error(f"Validation error updating order {order_id}: {e}")
+        metrics.add_metric(name="OrderUpdateValidationError", unit=MetricUnit.Count, value=1)
+        raise BadRequestError(f"Invalid order data: {e}")
     except Exception as e:
-        logger.error("Order update failed", extra={"error": str(e), "order_id": order_id})
+        logger.error(f"Failed to update order {order_id}: {e}")
         metrics.add_metric(name="OrderUpdateError", unit=MetricUnit.Count, value=1)
         raise InternalServerError(f"Failed to update order: {str(e)}")
 
 
+# Delete a sales order
 @app.delete("/orders/<order_id>")
 @tracer.capture_method
-def delete_order(order_id: str):
+def delete_order(order_id: str) -> dict:
     """
     Delete a sales order.
     
     Permanently removes the order from the system.
-    This action cannot be undone.
+    Returns confirmation of deletion.
     """
     try:
-        if order_id not in orders_storage:
+        deleted = storage.delete_order(order_id)
+        if not deleted:
             raise NotFoundError(f"Order {order_id} not found")
-        
-        order = orders_storage[order_id]
-        del orders_storage[order_id]
         
         # Add metrics
         metrics.add_metric(name="OrderDeleted", unit=MetricUnit.Count, value=1)
         
         # Add tracing annotations
         tracer.put_annotation(key="OrderId", value=order_id)
-        tracer.put_annotation(key="OrderStatus", value=order.status.value)
         
-        logger.info(
-            "Order deleted successfully",
-            extra={
-                "order_id": order_id,
-                "customer_id": order.customer.customer_id
-            }
-        )
+        logger.info(f"Order deleted successfully: {order_id}")
         
-        return {"message": f"Order {order_id} deleted successfully"}
+        return {
+            "message": f"Order {order_id} deleted successfully",
+            "order_id": order_id,
+            "deleted_at": datetime.now(timezone.utc).isoformat()
+        }
         
     except NotFoundError:
+        metrics.add_metric(name="OrderDeleteNotFound", unit=MetricUnit.Count, value=1)
         raise
     except Exception as e:
-        logger.error("Order deletion failed", extra={"error": str(e), "order_id": order_id})
-        metrics.add_metric(name="OrderDeletionError", unit=MetricUnit.Count, value=1)
+        logger.error(f"Failed to delete order {order_id}: {e}")
+        metrics.add_metric(name="OrderDeleteError", unit=MetricUnit.Count, value=1)
         raise InternalServerError(f"Failed to delete order: {str(e)}")
 
 
-# Order status operations
+# Get order status
 @app.get("/orders/<order_id>/status")
 @tracer.capture_method
-def get_order_status(order_id: str):
+def get_order_status(order_id: str) -> dict:
     """
     Get the current status of a sales order.
     
     Returns just the status information for quick status checks.
     """
     try:
-        if order_id not in orders_storage:
+        order = storage.get_order(order_id)
+        if not order:
             raise NotFoundError(f"Order {order_id} not found")
-        
-        order = orders_storage[order_id]
         
         # Add tracing annotations
         tracer.put_annotation(key="OrderId", value=order_id)
         tracer.put_annotation(key="OrderStatus", value=order.status.value)
         
-        # Add metrics
-        metrics.add_metric(name="OrderStatusRetrieved", unit=MetricUnit.Count, value=1)
+        logger.info(f"Order status retrieved: {order_id} - {order.status.value}")
         
         return {
             "order_id": order_id,
@@ -429,72 +406,81 @@ def get_order_status(order_id: str):
     except NotFoundError:
         raise
     except Exception as e:
-        logger.error("Order status retrieval failed", extra={"error": str(e), "order_id": order_id})
-        metrics.add_metric(name="OrderStatusRetrievalError", unit=MetricUnit.Count, value=1)
-        raise InternalServerError(f"Failed to retrieve order status: {str(e)}")
+        logger.error(f"Failed to get order status {order_id}: {e}")
+        raise InternalServerError(f"Failed to get order status: {str(e)}")
 
 
+# Update order status only
 @app.patch("/orders/<order_id>/status")
 @tracer.capture_method
-def update_order_status(order_id: str, status_update: OrderStatusUpdate):
+def update_order_status(order_id: str, status_update: OrderStatusUpdate) -> dict:
     """
-    Update the status of a sales order.
+    Update only the status of a sales order.
     
-    Updates only the order status while preserving all other order data.
-    The updated timestamp is automatically set to the current time.
+    Allows for quick status updates without modifying other order details.
+    Useful for order fulfillment workflows.
     """
     try:
-        if order_id not in orders_storage:
+        order = storage.get_order(order_id)
+        if not order:
             raise NotFoundError(f"Order {order_id} not found")
         
-        order = orders_storage[order_id]
         previous_status = order.status
         
-        # Update status and timestamp
+        # Update only the status and timestamp
         order.status = status_update.status
         order.updated_at = datetime.now(timezone.utc)
+        
+        # Store updated order
+        storage.update_order(order)
         
         # Add metrics
         metrics.add_metric(name="OrderStatusUpdated", unit=MetricUnit.Count, value=1)
         
         # Add tracing annotations
         tracer.put_annotation(key="OrderId", value=order_id)
-        tracer.put_annotation(key="OrderStatus", value=order.status.value)
         tracer.put_annotation(key="PreviousStatus", value=previous_status.value)
+        tracer.put_annotation(key="NewStatus", value=order.status.value)
         
         logger.info(
-            "Order status updated successfully",
+            f"Order status updated: {order_id}",
             extra={
                 "order_id": order_id,
                 "previous_status": previous_status.value,
-                "new_status": order.status.value,
-                "customer_id": order.customer.customer_id
+                "new_status": order.status.value
             }
         )
         
         return {
             "order_id": order_id,
-            "status": order.status.value,
             "previous_status": previous_status.value,
+            "new_status": order.status.value,
             "updated_at": order.updated_at.isoformat()
         }
         
     except NotFoundError:
         raise
+    except ValidationError as e:
+        logger.error(f"Validation error updating order status {order_id}: {e}")
+        raise BadRequestError(f"Invalid status data: {e}")
     except Exception as e:
-        logger.error("Order status update failed", extra={"error": str(e), "order_id": order_id})
-        metrics.add_metric(name="OrderStatusUpdateError", unit=MetricUnit.Count, value=1)
+        logger.error(f"Failed to update order status {order_id}: {e}")
         raise InternalServerError(f"Failed to update order status: {str(e)}")
 
 
-# Lambda handler
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)
 @tracer.capture_lambda_handler
-@metrics.log_metrics
+@metrics.log_metrics(capture_cold_start_metric=True)
 def lambda_handler(event: dict, context: LambdaContext) -> dict:
     """
     AWS Lambda handler function.
     
     Processes API Gateway events and routes them to appropriate handlers.
+    Includes comprehensive logging, tracing, and metrics collection.
     """
-    return app.resolve(event, context)
+    try:
+        return app.resolve(event, context)
+    except Exception as e:
+        logger.error(f"Unhandled error in lambda handler: {e}")
+        metrics.add_metric(name="UnhandledError", unit=MetricUnit.Count, value=1)
+        raise

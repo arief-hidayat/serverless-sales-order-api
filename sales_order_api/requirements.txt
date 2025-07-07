@@ -2,3 +2,4 @@ requests
 aws-lambda-powertools[tracer,parser]
 pydantic
 typing-extensions
+boto3

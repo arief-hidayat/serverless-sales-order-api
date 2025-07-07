@@ -28,7 +28,7 @@ This serverless application uses:
 
 ## Security
 
-This API uses **API Key authentication** to secure all order management endpoints. The health check (`/health`) and OpenAPI specification (`/openapi.json`) endpoints are publicly accessible for monitoring purposes.
+This API uses **API Key authentication** to secure all order management endpoints. The health check (`/health`) and interactive documentation (`/swagger`) endpoints are publicly accessible for monitoring and documentation purposes.
 
 ### Authentication
 
@@ -68,7 +68,8 @@ aws apigateway get-api-keys --include-values
 
 ### Utility
 - `GET /health` - Health check endpoint
-- `GET /openapi.json` - OpenAPI 3.0 specification
+- `GET /swagger` - Interactive API documentation (Swagger UI)
+- `GET /openapi.json` - OpenAPI 3.0 specification (raw JSON)
 
 ## Order Lifecycle
 
